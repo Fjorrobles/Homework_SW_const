@@ -1,4 +1,4 @@
-#2568689
+
 """
 Using urllib and json to get values from the NASDAQ website for 4 different companies 
 over the last five years and comparing the closing price data.
