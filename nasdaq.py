@@ -5,6 +5,7 @@ over the last five years and comparing the closing price data.
 """
 import urllib.request
 import json 
+#using regular expressions to search through data and store it in a variable
 import re 
 def download_data(ticker: str) -> dict:
     '''dowloading data from the NASDAQ website to view the Min, Max, Avg, Medium, and Ticker'''
@@ -22,7 +23,7 @@ def download_data(ticker: str) -> dict:
       
         #need to convert the list of strings into floats
         closing_prices = [float(price) for price in closing_prices]
-        
+
         if closing_prices:   
             # Calculate min, max, avg, and median
             stock_summary = {
@@ -35,19 +36,23 @@ def download_data(ticker: str) -> dict:
 
             return stock_summary
         else:
-            print("Error")
+            print("Error: No closing prices were found")
             return None
+    #output an error message if the attempt to find the information from the url doesn't work
     except IOError as e:
         print(e)
     return{}
+
+#saving the data into a json file (also had ChatGPT help)
 def save_json(data: dict):
+    '''Putting the stock_summary data into a json file'''
     with open('stocks.json', 'w') as f:
         json.dump(data, f, indent=4)
     
     print("Data saved to stocks.json")
 
-# Example usage
-ticker = ['AAPL','MSFT','GOOGL','TSLA'] # Apple stock
+#Using 4 different ticker inputs to find data
+ticker = ['AAPL','MSFT','GOOGL','TSLA'] 
 data_total = {}
 
 for stock in ticker:
